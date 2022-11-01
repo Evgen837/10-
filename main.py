@@ -22,10 +22,6 @@
 #     print(f'Закралась очередная ошибка!')
 
 
-
-
-
-
 # # День сурка
 # #
 # # Напишите функцию one_day() которая возвращает количество кармы от 1 до 7
@@ -104,7 +100,6 @@
 #             log_file.write(f'На {groundhog_day}-й день ты... {exc} \n')
 
 
-
 # # Есть файл с протоколом регистраций пользователей на сайте - registrations.txt
 # # Каждая строка содержит: ИМЯ ЕМЕЙЛ ВОЗРАСТ, разделенные пробелами
 # # Например:
@@ -128,69 +123,47 @@
 # # Вызов метода обернуть в try-except.
 #
 #
-# bad_items = 0
-# good_items = 0
-#
-# def writing_in_bad_log(bad_items, line, message):
-#     if bad_items == 0:
-#         mode = 'w'
-#     else:
-#         mode = 'a'
-#         with open(file='registrations_bad.log', mode=mode, encoding='utf8') as file_for_bad_enter:
-#             file_for_bad_enter.write(f'{message} в строке {line}')
-#
-#
-# with open(file='registrations.txt', mode='r', encoding='utf8') as entered_file:
-#     for line in entered_file:
-#         try:
-#             name, email, age = line.split(' ')
-#             if not name.isalpha():
-#                 writing_in_bad_log(bad_items=bad_items, line=line, message='поле имени содержит НЕ только буквы')
-#                 bad_items += 1
-#             elif ('@' not in email) or ('.' not in email):
-#                 writing_in_bad_log(bad_items=bad_items, line=line, message='поле емейл НЕ содержит @ и .(точку)')
-#                 bad_items += 1
-#             elif int(age) >99 or int(age) <10:
-#                 writing_in_bad_log(bad_items=bad_items, line=line, message='поле возраст НЕ является числом от 10 до 99')
-#                 bad_items += 1
-#             else:
-#                 if good_items == 0:
-#                     mode = 'w'
-#                 else:
-#                     mode = 'a'
-#                 with open(file='registrations_good.log', mode=mode, encoding='utf8') as file_for_enter:
-#                     file_for_enter.write(line)
-#                 good_items += 1
-#
-#
-#         except ValueError:
-#             if bad_items == 0:
-#                 mode = 'w'
-#             else:
-#                 mode = 'a'
-#             with open(file='registrations_bad.log', mode=mode, encoding='utf8') as file_for_bad_enter:
-#                 file_for_bad_enter.write(f'НЕ присутсвуют все три поля в строке {line}')
-#             bad_items +=1
+bad_items = 0
+good_items = 0
 
 
+def writing_in_bad_log(bad_items, line, message):
+    if bad_items == 0:
+        mode = 'w'
+    else:
+        mode = 'a'
+    with open(file='registrations_bad.log', mode=mode, encoding='utf8') as file_for_bad_enter:
+        file_for_bad_enter.write(f'{message} в строке {line}')
+    bad_items += 1
 
 
+with open(file='registrations.txt', mode='r', encoding='utf8') as entered_file:
+    for line in entered_file:
+        try:
+            name, email, age = line.split(' ')
+            if not name.isalpha():
+                writing_in_bad_log(bad_items=bad_items, line=line, message='поле имени содержит НЕ только буквы')
+            elif ('@' not in email) or ('.' not in email):
+                writing_in_bad_log(bad_items=bad_items, line=line, message='поле емейл НЕ содержит @ и .(точку)')
+                bad_items += 1
+            elif int(age) > 99 or int(age) < 10:
+                writing_in_bad_log(bad_items=bad_items, line=line,
+                                   message='поле возраст НЕ является числом от 10 до 99')
+            else:
+                if good_items == 0:
+                    mode = 'w'
+                else:
+                    mode = 'a'
+                with open(file='registrations_good.log', mode=mode, encoding='utf8') as file_for_enter:
+                    file_for_enter.write(line)
+                good_items += 1
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        except ValueError:
+            if bad_items == 0:
+                mode = 'w'
+            else:
+                mode = 'a'
+            with open(file='registrations_bad.log', mode=mode, encoding='utf8') as file_for_bad_enter:
+                file_for_bad_enter.write(f'НЕ присутсвуют все три поля в строке {line}')
+            bad_items += 1
