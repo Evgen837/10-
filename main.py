@@ -135,6 +135,7 @@ def writing_in_bad_log(bad_items, line, message):
     with open(file='registrations_bad.log', mode=mode, encoding='utf8') as file_for_bad_enter:
         file_for_bad_enter.write(f'{message} в строке {line}')
     bad_items += 1
+    return bad_items
 
 
 with open(file='registrations.txt', mode='r', encoding='utf8') as entered_file:
